@@ -2,21 +2,21 @@ from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 from sql import *
 
-TOKEN = "<your TOKEN>"  # Dont forget input your token here
+TOKEN = "input your TOKEN here"  # Dont forget input your token here
 bot = Bot(token=TOKEN)
 updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 
 
 def start(update, context):
-    arg = context.args
-    if not arg:
-        context.bot.send_message(update.effective_chat.id, """Hello, it's your to-do list. To use it enter the 
+    context.bot.send_message(update.effective_chat.id, """Hello, it's your to-do list. To use it enter the 
         command. Choose an action: 
         "/add (name), (description)" to add a new task 
         "/del (id of task to delete)" to delete the task 
         "/done (id of task to complete)" to mark the task as completed 
         "/show" to show tasks""")
+    user_id = update.message.from_user.id
+    db(user_id)
 
 
 def print_data(update, context):
